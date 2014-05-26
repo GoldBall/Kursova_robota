@@ -125,11 +125,6 @@ namespace MT
             dataGridView1.Rows.RemoveAt(ind);
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button5_Click(object sender, EventArgs e)
         {
             dataGridView2.ColumnCount = 0;
@@ -137,17 +132,19 @@ namespace MT
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string slovo="s1^";
-            for (int i = 0; i < dataGridView2.ColumnCount;i++ )
+            string[] slovo1 = new string[100];
+            string slovo2= null;
+            string d = "a";
+            for (int i = 0; i < dataGridView2.RowCount;i++ )
             {
-                slovo = slovo + dataGridView2.Rows[0].Cells[i].Value.ToString();
+                for (int j = 0; j < dataGridView2.ColumnCount; j++)
+                {
+                    slovo1[j] = dataGridView2.Rows[i].Cells[j].Value.ToString();
+                    slovo2 = slovo2 + slovo1[j].ToString();
+                    int k = slovo
+                }
             }
-            listBox1.Items.Add(slovo);
-        }
-
-        private void textBox1_Enter(object sender, EventArgs e)
-        {
-           
+            listBox1.Items.Add(slovo2);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

@@ -124,7 +124,7 @@ namespace MT
             int ind = dataGridView1.SelectedCells[0].RowIndex;
             dataGridView1.Rows.RemoveAt(ind);
         }
-
+        //видалення слова
         private void button5_Click(object sender, EventArgs e)
         {
             dataGridView2.ColumnCount = 0;
@@ -135,52 +135,44 @@ namespace MT
             string porozhne = "^";
             string stan="s1";
             string slovo = null;
-            string[] str1 = new string[100];
             // переведення вхідного слова
             for (int i = 0; i < dataGridView2.ColumnCount;i++ )
             {
-                slovo =stan + dataGridView2.Rows[0].Cells[i].Value.ToString();
+                slovo =slovo + dataGridView2.Rows[0].Cells[i].Value.ToString();
             }
-            slovo = porozhne + slovo + porozhne;
+            slovo = porozhne + stan + slovo + porozhne;
             // виведення результату
-            for (int i = 0; i < dataGridView1.RowCount-1; i++)
+            for (int i = 0; i < dataGridView1.RowCount-1;)
             {
                 string s1 = dataGridView1.Rows[i].Cells[0].Value.ToString() + dataGridView1.Rows[i].Cells[1].Value.ToString();
                 string s2 = dataGridView1.Rows[i].Cells[3].Value.ToString() + dataGridView1.Rows[i].Cells[4].Value.ToString();
-                string s3 = dataGridView1.Rows[i].Cells[3].Value.ToString();
+                string s3 = dataGridView1.Rows[i].Cells[4].Value.ToString() + dataGridView1.Rows[i].Cells[3].Value.ToString();
+                string s4 = null;
+                string napryamok = dataGridView1.Rows[i].Cells[5].Value.ToString();
+                //перевірка на входження
                 Boolean d = slovo.Contains(s1);
-                int index1 = slovo.IndexOf("s");
-                int index2 = slovo.IndexOf(stan) - 1;
-                char[] sd;
-                string slovo2 = null;
-                sd = slovo.ToCharArray();
-                for (int ind = 0; ind < slovo.Length; ind++)
-                {
+                int index1 = slovo.IndexOf(stan);//індекс входження stan в слово
 
-                    slovo2 = sd[index1].ToString()+sd[index1+1];
-                }
-                    if (d == true)
+
+                if (d == true)
+                {
+                    if (napryamok == "l")
                     {
-                        string napryamok = dataGridView1.Rows[i].Cells[5].Value.ToString();
-                        if (napryamok == "l")
-                        {
-                            for (int ind = 0; ind < slovo.Length; ind++)
-                            {
-                                slovo = sd[i].ToString();
-                            }
-                        }
-                        if (napryamok == "r")
-                        {
-                            s2 = dataGridView1.Rows[i].Cells[4].Value.ToString() + dataGridView1.Rows[i].Cells[3].Value.ToString();
-                        }
-                        if (napryamok == "n")
-                        {
-                            s2 = dataGridView1.Rows[i].Cells[3].Value.ToString() + dataGridView1.Rows[i].Cells[4].Value.ToString();
-                        }
-                        slovo = slovo.Replace(s1, s2);
+
                     }
-                listBox1.Items.Add(slovo2);
-                listBox1.Items.Add(slovo);
+                    if (napryamok == "r")
+                    {
+                        s4 = s3;
+                    }
+                    if (napryamok == "n")
+                    {
+                        s4 = s2;
+                    }
+                    slovo = slovo.Replace(s1, s4);
+                    listBox1.Items.Add(slovo);
+                    i = 0;
+                }
+                else i++;
             }
         }
         // занесення символа до слова
